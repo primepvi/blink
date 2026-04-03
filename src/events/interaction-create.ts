@@ -1,6 +1,7 @@
 import { Interaction, CacheType } from "discord.js";
 import { createEvent } from "../factory/event";
 import { bot } from "../bot";
+import { db } from "../schemas";
 
 export default createEvent({
     name: "interactionCreate",
@@ -10,6 +11,11 @@ export default createEvent({
 	if (!command) {
 	  interaction.reply("Não foi possível encontrar este comando.");
 	  return;
+	}
+
+	const userData = await db.users.findById(interaction.user.id);
+	if (!userData) {
+	  await db.users.create({ _id: interaction.user.id });
 	}
 
 	await command.execute(interaction);

@@ -5,6 +5,7 @@ import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { CommandOptions } from "../factory/command";
+import mongoose from "mongoose";
 
 export interface BotConfig {
 	token: string;
@@ -27,8 +28,10 @@ const DEFAULT_CONFIG: BotConfig = {
 	commandsGuildID: "1033506011119636492"
 };
 
+const DEFAULT_DATABASE_URL = process.env.DATABASE_URL!;
+
 export class Bot extends Client {
-        public commands = new Collection<string, CommandOptions>();
+	public commands = new Collection<string, CommandOptions>();
 	public commandsGuildId: string;
 
 	public constructor({ token, intents, commandsGuildID }: BotConfig = DEFAULT_CONFIG) {
@@ -39,9 +42,21 @@ export class Bot extends Client {
 	}
 
 	public async init() {
-	  await this.loadCommands();
-	  await super.login(this.token!);
-	  await this.loadEvents();
+		await this.loadCommands();
+		await super.login(this.token!);
+		await this.loadEvents();
+		await this.connectToDatabase();
+	}
+
+	private async connectToDatabase(url = DEFAULT_DATABASE_URL) {
+		try {
+			await mongoose.connect(url);
+			logger.success("O banco de dados foi conectado com sucesso.");
+		} catch (error) {
+			logger.error(
+				`Erro ao se conectar com o banco de dados: \n${error}`,
+			);
+		}
 	}
 
 	private async loadEvents() {
@@ -61,11 +76,11 @@ export class Bot extends Client {
 
 		for (const file of files) {
 			const { default: command } = await import(file);
-		        this.commands.set(command.name, command);
+			this.commands.set(command.name, command);
 
 			logger.success(`O comando ${command.name} foi carregado com sucesso.`);
 		}
-	}   
+	}
 
 	private loadFiles(path: string, recursive = true): string[] {
 		const files = readdirSync(path, { withFileTypes: true, recursive })
