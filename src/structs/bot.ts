@@ -1,10 +1,10 @@
 import { logger } from "@kauzx/logger";
-import { Client, Collection, GatewayIntentBits } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, Client, Collection, GatewayIntentBits } from "discord.js";
 import { privateDecrypt } from "node:crypto";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { CommandOptions } from "../factory/command";
+import { CommandOptions, SubCommandOptions } from "../factory/command";
 import mongoose from "mongoose";
 
 export interface BotConfig {
@@ -32,6 +32,7 @@ const DEFAULT_DATABASE_URL = process.env.DATABASE_URL!;
 
 export class Bot extends Client {
 	public commands = new Collection<string, CommandOptions>();
+	public subCommands = new Collection<string, SubCommandOptions>();
 	public commandsGuildId: string;
 
 	public constructor({ token, intents, commandsGuildID }: BotConfig = DEFAULT_CONFIG) {
@@ -75,10 +76,18 @@ export class Bot extends Client {
 		const files = this.loadFiles("src/commands/");
 
 		for (const file of files) {
-			const { default: command } = await import(file);
-			this.commands.set(command.name, command);
+		  const { default: command } = await import(file);
 
-			logger.success(`O comando ${command.name} foi carregado com sucesso.`);
+			if (command.parent) {
+				const fullName = command.parent + "_" + command.name;
+			  this.subCommands.set(fullName, command);
+			  	logger.success(`O subcomando ${fullName} foi carregado com sucesso.`);
+			} else {
+				this.commands.set(command.name, command);
+				logger.success(`O comando ${command.name} foi carregado com sucesso.`);
+			}
+
+
 		}
 	}
 

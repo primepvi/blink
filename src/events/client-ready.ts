@@ -9,7 +9,14 @@ export default createEvent({
 	async execute(client: Client<true>) {
 	  logger.info(`O bot foi conectado com sucesso em ${client.user.displayName},`);
 
-	  const commands = bot.commands.toJSON();
+	  const commands = bot.commands.toJSON().map(c => {
+	    const subCommands = c.subCommands?.map(s => bot.subCommands.get(`${c.name}_${s}`));
+	    if (!subCommands) return c;
+
+	    return { ...c, options: [...c.options, ...subCommands] };
+	  });
+
+	   
 	  await bot.rest.put(Routes.applicationGuildCommands(client.application.id, bot.commandsGuildId), { body: commands });
 
 	  const guild = await bot.guilds.fetch(bot.commandsGuildId);
