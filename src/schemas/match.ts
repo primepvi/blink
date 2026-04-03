@@ -3,6 +3,7 @@ import { model, Schema } from "mongoose";
 export interface MatchData {
   _id: Schema.Types.ObjectId;
   userId: string;
+  seed: string;
   floor: number;
   coins: number;
   createdAt: number;
@@ -11,6 +12,7 @@ export interface MatchData {
 
 const matchSchema = new Schema<MatchData>({
   userId: { type: String, required: true },
+  seed: { type: String, required: true },
   floor: { type: Number, default: 1 },
   coins: { type: Number, default: 10 },
   createdAt: { type: Number, default: Date.now },
