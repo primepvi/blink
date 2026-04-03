@@ -2,6 +2,7 @@ import { ApplicationCommandOptionType, ChatInputCommandInteraction } from "disco
 import { createSubCommand } from "../../factory/command";
 import { db } from "../../schemas";
 import { generateSeed, dailySeed } from "../../utils/seed";
+import { Grid } from "../../structs/grid";
 
 export default createSubCommand({
 	parent: "match",
@@ -26,9 +27,11 @@ export default createSubCommand({
 			inputSeed === "daily" ? dailySeed() : inputSeed
 			: generateSeed();
 
+		const grid = new Grid(seed);
 		const matchData = await db.matches.create({
 			userId: interaction.user.id,
-			seed: seed
+			seed: seed,
+			phase: grid.phase,
 		});
 
 		userData.match = matchData._id;

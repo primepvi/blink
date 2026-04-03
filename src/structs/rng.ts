@@ -1,34 +1,49 @@
 import { hashSeed, mulberry32 } from "../utils/seed";
 
 export class RNG {
-  public seed: number;
-  private randomFunction: () => number;
-  
-  public constructor(public rawSeed: string) {
-    this.seed = hashSeed(rawSeed);
-    this.randomFunction = mulberry32(this.seed);
-  }
+	public seed: number;
+	private randomFunction: () => number;
 
-  public next() { return this.randomFunction(); }
-  public int(min: number, max: number) { return Math.floor(this.next() * (max - min + 1)) + min; }
-  public float(min: number, max: number) { return this.next() * (max - min) + min; }
-  public chance(percent: number) { return this.next() < percent / 100; }
+	public constructor(public rawSeed: string) {
+		this.seed = hashSeed(rawSeed);
+		this.randomFunction = mulberry32(this.seed);
+	}
 
-  public pick<T>(array: T[]): T {
-    return array[this.int(0, array.length - 1)];
-  }
+	public next() { return this.randomFunction(); }
+	public int(min: number, max: number) { return Math.floor(this.next() * (max - min + 1)) + min; }
+	public float(min: number, max: number) { return this.next() * (max - min) + min; }
+	public chance(percent: number) { return this.next() < percent / 100; }
 
-  public shuffle<T>(array: T[]): T[] {
-    const clone = [...array];
-    for (let i = clone.length - 1; i > 0; i--) {
-      const j = this.int(0, i);
-      [clone[i], clone[j]] = [clone[j], clone[i]];
-    }
+	public pick<T>(array: T[]): T {
+		return array[this.int(0, array.length - 1)];
+	}
 
-    return clone;
-  }
+	public shuffle<T>(array: T[]): T[] {
+		const clone = [...array];
+		for (let i = clone.length - 1; i > 0; i--) {
+			const j = this.int(0, i);
+			[clone[i], clone[j]] = [clone[j], clone[i]];
+		}
 
-  public sample<T>(array: T[], count: number): T[] {
-    return this.shuffle<T>(array).slice(0, count);
-  }
+		return clone;
+	}
+
+	public sample<T>(array: T[], count: number): T[] {
+		return this.shuffle<T>(array).slice(0, count);
+	}
+
+	public weightedPick<T extends string>(
+		weights: Record<T, number>
+	): T {
+		const entries = Object.entries(weights) as [T, number][]
+		const total = entries.reduce((sum, [, w]) => sum + w, 0)
+		let roll = this.float(0, total)
+
+		for (const [key, weight] of entries) {
+			roll -= weight
+			if (roll <= 0) return key
+		}
+
+		return entries[0][0]
+	}
 }

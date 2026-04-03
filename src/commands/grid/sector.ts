@@ -1,11 +1,12 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { createSubCommand } from "../../factory/command";
 import { db } from "../../schemas";
+import { Grid } from "../../structs/grid";
 
 export default createSubCommand({
-	parent: "dungeon",
-	name: "floor",
-	description: "Utilize esse comando para interagir com o andar atual da dungeon.",
+	parent: "grid",
+	name: "sector",
+	description: "Utilize esse comando para interagir com o setor atual do grid.",
 	options: [],
         async execute(interaction: ChatInputCommandInteraction) {
 	  await interaction.deferReply();
@@ -17,6 +18,9 @@ export default createSubCommand({
 	  }
 
 	  const matchData = (await db.matches.findById(userData.match))!;
-	  interaction.editReply(`Floor: ${matchData.floor}`);
+
+	  const grid = new Grid(matchData.seed, matchData.phase);
+	  const { sector } = grid.getSectorByIndex(matchData.sector);
+	  interaction.editReply(`Sector: ${matchData.sector}\n Data: ${JSON.stringify(sector, null, 2)}`);
 	},
 });
