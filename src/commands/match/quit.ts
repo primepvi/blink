@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { createSubCommand } from "../../factory/command";
 import { db } from "../../schemas";
+import { emojis } from "../../utils/emojis";
 
 export default createSubCommand({
 	parent: "match",
@@ -11,8 +12,9 @@ export default createSubCommand({
 		await interaction.deferReply();
 
 		const userData = (await db.users.findById(interaction.user.id))!;
-		if (!userData.match) {
-			interaction.editReply("Você não tem uma partida em andamento.");
+	  if (!userData.match) {
+	    		interaction.editReply(`> ${emojis.icon_error} ** | Erro!** ${interaction.user}, você **não possui** uma **partida em andamento**.`);
+	
 			return;
 		}
 
@@ -23,6 +25,6 @@ export default createSubCommand({
 		userData.match = undefined;
 		await userData.save();
 
-		interaction.editReply("Você saiu da partida com sucesso.");
+	  	interaction.editReply(`> ${emojis.icon_ok} ** | Sucesso!** ${interaction.user}, você **saiu** da **partida**.`);
 	},
 });

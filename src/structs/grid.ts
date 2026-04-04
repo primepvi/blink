@@ -1,5 +1,4 @@
 import { RNG } from "./rng";
-import { MatchData } from "../schemas/match";
 import { MobSector, Phase, Sector, SectorReward, SectorType, ShopSector } from "../types/grid";
 import { mobs } from "../prefabs/mobs";
 import { Item, ItemKind } from "../types/items";
@@ -9,9 +8,9 @@ export class Grid {
 	private rng: RNG;
 	public phase: Phase;
 
-	public constructor(private seed: string, phase?: Phase) {
-		this.rng = new RNG(seed);
-		this.phase = phase || this.generate()!;
+	public constructor(private seed: string) {
+		this.rng = new RNG(this.seed);
+		this.phase = this.generate()!;
 	}
 
 	public getSectorByIndex(index: number) {
@@ -29,7 +28,7 @@ export class Grid {
 	}
 
 	public generate(index = 0): Phase | undefined {
-		if (index >= 25) { return; }
+		if (index >= 5) { return; }
 
 		return {
 			index,
@@ -62,7 +61,7 @@ export class Grid {
 
 	private generateShopSector(index: number) {
 		const shopKind: ItemKind = this.rng.pick<ItemKind>(["Armor", "Weapon", "Consumable", "Accessory"]);
-		const shopName = `${shopKind} Shop`;
+	        const shopName = `${shopKind} Shop`;
 		const itemsArray = itemsRegistry.filter(item => item.kind === shopKind).toJSON();
 		const shopItems = this.rng.sample<Item>(itemsArray, 3);
 	

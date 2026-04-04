@@ -1,8 +1,9 @@
 import { ApplicationCommandOptionType, ChatInputCommandInteraction } from "discord.js";
 import { createSubCommand } from "../../factory/command";
 import { db } from "../../schemas";
-import { generateSeed, dailySeed } from "../../utils/seed";
+import { generateSeed, dailySeed, hashSeed } from "../../utils/seed";
 import { Grid } from "../../structs/grid";
+import { emojis } from "../../utils/emojis";
 
 export default createSubCommand({
 	parent: "match",
@@ -18,7 +19,7 @@ export default createSubCommand({
 
 		const userData = (await db.users.findById(interaction.user.id))!;
 		if (userData.match) {
-			interaction.editReply("Você já tem uma partida em andamento.");
+			interaction.editReply(`> ${emojis.icon_error} ** | Erro!** ${interaction.user}, você **já possui** uma **partida em andamento**.`);
 			return;
 		}
 
@@ -27,16 +28,14 @@ export default createSubCommand({
 			inputSeed === "daily" ? dailySeed() : inputSeed
 			: generateSeed();
 
-		const grid = new Grid(seed);
 		const matchData = await db.matches.create({
 			userId: interaction.user.id,
 			seed: seed,
-			phase: grid.phase,
 		});
 
 		userData.match = matchData._id;
 		await userData.save();
 
-		interaction.editReply("Você iniciou uma partida com sucesso.");
+		interaction.editReply(`> ${emojis.icon_ok} ** | Sucesso!** ${interaction.user}, você **começou** uma **partida** com a **seed**: \`${seed} [${hashSeed(seed)}]\`.`);
 	},
 });

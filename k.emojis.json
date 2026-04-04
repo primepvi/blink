@@ -1,0 +1,77 @@
+{
+  "icon_bag": {
+    "animated": false,
+    "id": "1489999860441813182",
+    "link": "https://cdn.discordapp.com/emojis/1489999860441813182.png"
+  },
+  "icon_burguer": {
+    "animated": false,
+    "id": "1489999862257680394",
+    "link": "https://cdn.discordapp.com/emojis/1489999862257680394.png"
+  },
+  "icon_credit": {
+    "animated": false,
+    "id": "1489999863851647056",
+    "link": "https://cdn.discordapp.com/emojis/1489999863851647056.png"
+  },
+  "icon_fire": {
+    "animated": false,
+    "id": "1489999865567248515",
+    "link": "https://cdn.discordapp.com/emojis/1489999865567248515.png"
+  },
+  "icon_game": {
+    "animated": false,
+    "id": "1489999867278393534",
+    "link": "https://cdn.discordapp.com/emojis/1489999867278393534.png"
+  },
+  "icon_home": {
+    "animated": false,
+    "id": "1489999869010645175",
+    "link": "https://cdn.discordapp.com/emojis/1489999869010645175.png"
+  },
+  "icon_info": {
+    "animated": false,
+    "id": "1489999870164205823",
+    "link": "https://cdn.discordapp.com/emojis/1489999870164205823.png"
+  },
+  "icon_shield": {
+    "animated": false,
+    "id": "1489999872185733253",
+    "link": "https://cdn.discordapp.com/emojis/1489999872185733253.png"
+  },
+  "icon_skull": {
+    "animated": false,
+    "id": "1489999873792016495",
+    "link": "https://cdn.discordapp.com/emojis/1489999873792016495.png"
+  },
+  "icon_stars": {
+    "animated": false,
+    "id": "1489999874802974812",
+    "link": "https://cdn.discordapp.com/emojis/1489999874802974812.png"
+  },
+  "icon_sword": {
+    "animated": false,
+    "id": "1489999877604638750",
+    "link": "https://cdn.discordapp.com/emojis/1489999877604638750.png"
+  },
+  "assets_emojis_icon_pong": {
+    "animated": false,
+    "id": "1490003543359226056",
+    "link": "https://cdn.discordapp.com/emojis/1490003543359226056.png"
+  },
+  "icon_pong": {
+    "animated": false,
+    "id": "1490003991352967249",
+    "link": "https://cdn.discordapp.com/emojis/1490003991352967249.png"
+  },
+  "icon_error": {
+    "animated": false,
+    "id": "1490010249032106134",
+    "link": "https://cdn.discordapp.com/emojis/1490010249032106134.png"
+  },
+  "icon_ok": {
+    "animated": false,
+    "id": "1490010256284319815",
+    "link": "https://cdn.discordapp.com/emojis/1490010256284319815.png"
+  }
+}

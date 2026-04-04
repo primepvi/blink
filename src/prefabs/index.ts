@@ -6,13 +6,19 @@ import { armors } from "./armors";
 import { consumables } from "./consumables";
 import { accessories } from "./accessories";
 
-export const weaponsRegistry = new Collection<string, WeaponItem>(Object.entries(weapons));
-export const armorsRegistry = new Collection<string, ArmorItem>(Object.entries(armors));
-export const consumablesRegistry = new Collection<string, ConsumableItem>(Object.entries(consumables));
-export const accessoriesRegistry = new Collection<string, AccessoryItem>(Object.entries(accessories));
+function toSortedCollection<T extends Item>(record: Record<string, T>) {
+  return new Collection<string, T>(
+    Object.entries(record).sort(([a], [b]) => a.localeCompare(b))
+  )
+}
+
+export const weaponsRegistry = toSortedCollection<WeaponItem>(weapons)
+export const armorsRegistry = toSortedCollection<ArmorItem>(armors)
+export const consumablesRegistry = toSortedCollection<ConsumableItem>(consumables)
+export const accessoriesRegistry = toSortedCollection<AccessoryItem>(accessories)
 
 export const itemsRegistry = new Collection<string, Item>()
   .concat(weaponsRegistry)
   .concat(armorsRegistry)
   .concat(consumablesRegistry)
-  .concat(accessoriesRegistry);
+  .concat(accessoriesRegistry)
