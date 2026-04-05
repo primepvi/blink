@@ -27,7 +27,7 @@ export default createCommand({
 				  `> ${emojis.icon_info} ** | Database**: \`${dbLatency}ms\``,
 				),
 				k.separator.small,
-				`-# <t:${Math.floor(Date.now() / 1000)}:F>`,
+			  `-# Online desde <t:${Math.floor((bot.readyTimestamp || Date.now()) / 1000)}:F>`,
 			]),
 			flags: ["IsComponentsV2"]
 		});

@@ -4,6 +4,9 @@ import { db } from "../../schemas";
 import { k } from "kompozr";
 import { bot } from "../../bot";
 import { hashSeed } from "../../utils/seed";
+import { emojis } from "../../utils/emojis";
+import { Schema } from "mongoose";
+import { MatchData } from "../../schemas/match";
 
 export default createSubCommand({
 	parent: "match",
@@ -22,40 +25,40 @@ export default createSubCommand({
 		if (!matchId) {
 			const userData = (await db.users.findById(interaction.user.id))!;
 			if (!userData.match) {
-				interaction.editReply({
-					components: k.layout(["Você não tem uma partida em andamento."]),
-					flags: ["IsComponentsV2"]
-				});
-
+				interaction.editReply(`> ${emojis.icon_error} ** | Erro!** ${interaction.user}, você **não possui** uma **partida em andamento**.`);
 				return;
 			}
 
 			matchId = userData.match.toString();
 		}
 
-		const matchData = await db.matches.findById(matchId);
-		if (!matchData) {
-			interaction.editReply({
-				components: k.layout([`Não foi possível encontrar informações da partida: \`${matchId}\``]),
-				flags: ["IsComponentsV2"]
-			});
+		let matchData: MatchData;
+		try {
+			matchData = (await db.matches.findById(matchId))!;
+		} catch (err) {
+			interaction.editReply(`> ${emojis.icon_error} ** | Erro!** ${interaction.user}, não **foi possível** encontrar **informações** dessa **partida**.`);
 
 			return;
 		}
 
 		const startedTimestamp = `<t:${Math.floor(matchData.createdAt / 1000)}:R>`;
-		const finalizedTimestamp = matchData.finalizedAt ? `<t:${Math.floor(matchData.finalizedAt / 1000)}:R>` : "Em Andamento";
+		const finalizedTimestamp = matchData.finalizedAt ? `<t:${Math.floor(matchData.finalizedAt / 1000)}:R>` : "`Em Andamento`";
 
 		const player = await bot.users.fetch(matchData.userId);
 
 		interaction.editReply({
-			components: k.layout([k.text(
-				`- ID: ${matchData._id}`,
-				`- Player: ${player.username} [\`${player.id}\`]`,
-				`- Seed: ${matchData.seed} [${hashSeed(matchData.seed)}]`,
-				`- Iniciado: ${startedTimestamp}`,
-				`- Finalizado: ${finalizedTimestamp}`
-			)]),
+			components: [k.text(
+
+				`## ${emojis.icon_game} | BLINK — Informações da Partida`,
+				`> -# ${interaction.user}, veja **logo abaixo** as **informações da partida** `),
+			k.separator.small,
+			k.text(
+				`> ${emojis.icon_id} **| Id**: \`${matchData._id}\``,
+				`> ${emojis.icon_user} **| Player**: \`${player.username}\` **\`[${player.id}]\`**`,
+				`> ${emojis.icon_leaf} **| Seed**: \`${matchData.seed}\` **\`[${hashSeed(matchData.seed)}]\`**`,
+				`> ${emojis.icon_clock} **| Iniciado**: ${startedTimestamp}`,
+				`> ${emojis.icon_clock} **| Finalizado**: ${finalizedTimestamp}`
+			)],
 			flags: ["IsComponentsV2"]
 		});
 	},

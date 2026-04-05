@@ -54,11 +54,6 @@
     "id": "1489999877604638750",
     "link": "https://cdn.discordapp.com/emojis/1489999877604638750.png"
   },
-  "assets_emojis_icon_pong": {
-    "animated": false,
-    "id": "1490003543359226056",
-    "link": "https://cdn.discordapp.com/emojis/1490003543359226056.png"
-  },
   "icon_pong": {
     "animated": false,
     "id": "1490003991352967249",
@@ -73,5 +68,25 @@
     "animated": false,
     "id": "1490010256284319815",
     "link": "https://cdn.discordapp.com/emojis/1490010256284319815.png"
+  },
+  "icon_clock": {
+    "animated": false,
+    "id": "1490448721362685954",
+    "link": "https://cdn.discordapp.com/emojis/1490448721362685954.png"
+  },
+  "icon_id": {
+    "animated": false,
+    "id": "1490448730229313666",
+    "link": "https://cdn.discordapp.com/emojis/1490448730229313666.png"
+  },
+  "icon_leaf": {
+    "animated": false,
+    "id": "1490448732762931431",
+    "link": "https://cdn.discordapp.com/emojis/1490448732762931431.png"
+  },
+  "icon_user": {
+    "animated": false,
+    "id": "1490448743294832710",
+    "link": "https://cdn.discordapp.com/emojis/1490448743294832710.png"
   }
 }
