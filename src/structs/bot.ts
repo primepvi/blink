@@ -1,11 +1,11 @@
 import { logger } from "@kauzx/logger";
-import { ApplicationCommandOptionType, ApplicationCommandType, Client, Collection, GatewayIntentBits } from "discord.js";
-import { privateDecrypt } from "node:crypto";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { CommandOptions, SubCommandOptions } from "../factory/command";
 import mongoose from "mongoose";
+import { ComponentKind, ComponentOptions } from "../factory/component";
 
 export interface BotConfig {
 	token: string;
@@ -33,6 +33,8 @@ const DEFAULT_DATABASE_URL = process.env.DATABASE_URL!;
 export class Bot extends Client {
 	public commands = new Collection<string, CommandOptions>();
 	public subCommands = new Collection<string, SubCommandOptions>();
+	public components = new Collection<string, ComponentOptions<ComponentKind>>();
+
 	public commandsGuildId: string;
 
 	public constructor({ token, intents, commandsGuildID }: BotConfig = DEFAULT_CONFIG) {
@@ -44,6 +46,7 @@ export class Bot extends Client {
 
 	public async init() {
 		await this.loadCommands();
+		await this.loadComponents();
 		await super.login(this.token!);
 		await this.loadEvents();
 		await this.connectToDatabase();
@@ -72,16 +75,26 @@ export class Bot extends Client {
 		}
 	}
 
+	private async loadComponents() {
+		const files = this.loadFiles("src/components");
+
+		for (const file of files) {
+			const { default: component } = await import(file);
+			this.components.set(component.name, component);
+			logger.success(`O componente ${component.name} foi carregado com sucesso.`);
+		}
+	}
+
 	private async loadCommands() {
 		const files = this.loadFiles("src/commands/");
 
 		for (const file of files) {
-		  const { default: command } = await import(file);
+			const { default: command } = await import(file);
 
 			if (command.parent) {
 				const fullName = command.parent + "_" + command.name;
-			  this.subCommands.set(fullName, command);
-			  	logger.success(`O subcomando ${fullName} foi carregado com sucesso.`);
+				this.subCommands.set(fullName, command);
+				logger.success(`O subcomando ${fullName} foi carregado com sucesso.`);
 			} else {
 				this.commands.set(command.name, command);
 				logger.success(`O comando ${command.name} foi carregado com sucesso.`);

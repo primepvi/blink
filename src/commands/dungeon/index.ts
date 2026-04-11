@@ -2,9 +2,9 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { createCommand } from "../../factory/command";
 
 export default createCommand({
-	name: "match",
-	description: "match",
-	subCommands: ["start", "quit", "info"],
+	name: "dungeon",
+	description: "dungeon",
 	options: [],
+	subCommands: ["start"],
 	execute(interaction: ChatInputCommandInteraction) { },
 });

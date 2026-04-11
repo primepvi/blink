@@ -3,22 +3,18 @@ import { model, Schema } from "mongoose";
 export interface MatchData {
   _id: Schema.Types.ObjectId;
   userId: string;
+  playerId: Schema.Types.ObjectId;
   seed: string;
-  sector: number;
-  movements: number[];
-  coins: number;
   createdAt: number;
-  finalizedAt: number;
+  finalizedAt?: number;
 }
 
 const matchSchema = new Schema<MatchData>({
   userId: { type: String, required: true },
+  playerId: { type: Schema.ObjectId, required: true },
   seed: { type: String, required: true },
-  sector: { type: Number, default: 1 },
-  movements: { type: [Number], default: [] },
-  coins: { type: Number, default: 10 },
   createdAt: { type: Number, default: Date.now },
-  finalizedAt: { type: Number },
+  finalizedAt: { type: Number }
 });
 
 export const matchModel = model("matches", matchSchema);

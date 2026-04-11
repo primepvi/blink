@@ -9,11 +9,6 @@
     "id": "1489999862257680394",
     "link": "https://cdn.discordapp.com/emojis/1489999862257680394.png"
   },
-  "icon_credit": {
-    "animated": false,
-    "id": "1489999863851647056",
-    "link": "https://cdn.discordapp.com/emojis/1489999863851647056.png"
-  },
   "icon_fire": {
     "animated": false,
     "id": "1489999865567248515",
@@ -88,5 +83,80 @@
     "animated": false,
     "id": "1490448743294832710",
     "link": "https://cdn.discordapp.com/emojis/1490448743294832710.png"
+  },
+  "icon_coin": {
+    "animated": false,
+    "id": "1490466636178915380",
+    "link": "https://cdn.discordapp.com/emojis/1490466636178915380.png"
+  },
+  "icon_muscle": {
+    "animated": false,
+    "id": "1490494133775896677",
+    "link": "https://cdn.discordapp.com/emojis/1490494133775896677.png"
+  },
+  "icon_empty": {
+    "animated": false,
+    "id": "1491502745486889012",
+    "link": "https://cdn.discordapp.com/emojis/1491502745486889012.png"
+  },
+  "icon_lock": {
+    "animated": false,
+    "id": "1491502748951384224",
+    "link": "https://cdn.discordapp.com/emojis/1491502748951384224.png"
+  },
+  "icon_pocao_vida": {
+    "animated": false,
+    "id": "1491502752021614673",
+    "link": "https://cdn.discordapp.com/emojis/1491502752021614673.png"
+  },
+  "icon_espada_ferro": {
+    "animated": false,
+    "id": "1491502753783222502",
+    "link": "https://cdn.discordapp.com/emojis/1491502753783222502.png"
+  },
+  "icon_adaga_ferro": {
+    "animated": false,
+    "id": "1491502756672962611",
+    "link": "https://cdn.discordapp.com/emojis/1491502756672962611.png"
+  },
+  "icon_capacete_ferro": {
+    "animated": false,
+    "id": "1491502758111477964",
+    "link": "https://cdn.discordapp.com/emojis/1491502758111477964.png"
+  },
+  "icon_peitoral_ferro": {
+    "animated": false,
+    "id": "1491502761492091071",
+    "link": "https://cdn.discordapp.com/emojis/1491502761492091071.png"
+  },
+  "icon_botas_ferro": {
+    "animated": false,
+    "id": "1491502765434736670",
+    "link": "https://cdn.discordapp.com/emojis/1491502765434736670.png"
+  },
+  "icon_capuz_couro": {
+    "animated": false,
+    "id": "1491502767234351145",
+    "link": "https://cdn.discordapp.com/emojis/1491502767234351145.png"
+  },
+  "icon_manto_couro": {
+    "animated": false,
+    "id": "1491502769075388446",
+    "link": "https://cdn.discordapp.com/emojis/1491502769075388446.png"
+  },
+  "icon_botas_couro": {
+    "animated": false,
+    "id": "1491502771722129622",
+    "link": "https://cdn.discordapp.com/emojis/1491502771722129622.png"
+  },
+  "icon_credits": {
+    "animated": false,
+    "id": "1492542171784679454",
+    "link": "https://cdn.discordapp.com/emojis/1492542171784679454.png"
+  },
+  "icon_shop": {
+    "animated": false,
+    "id": "1492558702610350250",
+    "link": "https://cdn.discordapp.com/emojis/1492558702610350250.png"
   }
 }
