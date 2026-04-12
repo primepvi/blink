@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import { CommandOptions, SubCommandOptions } from "../factory/command";
 import mongoose from "mongoose";
 import { ComponentKind, ComponentOptions } from "../factory/component";
+import { Transient } from "./transient";
 
 export interface BotConfig {
 	token: string;
@@ -34,6 +35,8 @@ export class Bot extends Client {
 	public commands = new Collection<string, CommandOptions>();
 	public subCommands = new Collection<string, SubCommandOptions>();
 	public components = new Collection<string, ComponentOptions<ComponentKind>>();
+
+	public transient = new Transient();
 
 	public commandsGuildId: string;
 

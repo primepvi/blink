@@ -5,6 +5,6 @@ export default createCommand({
 	name: "dungeon",
 	description: "dungeon",
 	options: [],
-	subCommands: ["start"],
+	subCommands: ["start", "quit", "inventory"],
 	execute(interaction: ChatInputCommandInteraction) { },
 });

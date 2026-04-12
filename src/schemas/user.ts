@@ -7,7 +7,7 @@ export interface UserData {
 	credits: number;
 
 	currentKit?: string;
-	currentMatch?: string;
+	currentMatch?: Schema.Types.ObjectId;
 }
 
 const userSchema = new Schema<UserData>({
@@ -15,7 +15,7 @@ const userSchema = new Schema<UserData>({
 	kits: { type: [String], default: [] },
 	credits: { type: Number, default: 500 },
 	currentKit: { type: String },
-	currentMatch: { type: String },
+	currentMatch: { type: Schema.ObjectId },
 });
 
 export const userModel = model("users", userSchema);

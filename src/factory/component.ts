@@ -14,7 +14,7 @@ export interface ComponentOptions<T extends ComponentKind> {
 	type: T;
 	name: string;
 	authorOnly?: boolean;
-	execute: (interaction: ComponentInteraction[T]) => void | Promise<void>;
+	execute: (interaction: ComponentInteraction[T], args: string[]) => void | Promise<void>;
 }
 
 export function createComponent<T extends ComponentKind>(options: ComponentOptions<T>) { return options; }

@@ -158,5 +158,35 @@
     "animated": false,
     "id": "1492558702610350250",
     "link": "https://cdn.discordapp.com/emojis/1492558702610350250.png"
+  },
+  "icon_dashboard": {
+    "animated": false,
+    "id": "1492653710386528501",
+    "link": "https://cdn.discordapp.com/emojis/1492653710386528501.png"
+  },
+  "icon_arrow_right": {
+    "animated": false,
+    "id": "1492653711711797268",
+    "link": "https://cdn.discordapp.com/emojis/1492653711711797268.png"
+  },
+  "icon_arrow_left": {
+    "animated": false,
+    "id": "1492653712768766042",
+    "link": "https://cdn.discordapp.com/emojis/1492653712768766042.png"
+  },
+  "icon_arrow_down": {
+    "animated": false,
+    "id": "1492653714236899551",
+    "link": "https://cdn.discordapp.com/emojis/1492653714236899551.png"
+  },
+  "icon_arrow_up": {
+    "animated": false,
+    "id": "1492653715419566120",
+    "link": "https://cdn.discordapp.com/emojis/1492653715419566120.png"
+  },
+  "icon_swap": {
+    "animated": false,
+    "id": "1492656666590580917",
+    "link": "https://cdn.discordapp.com/emojis/1492656666590580917.png"
   }
 }

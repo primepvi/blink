@@ -18,13 +18,12 @@ export default createEvent({
 				return;
 			}
 
-			console.log(componentArgs);
 			if (component.authorOnly && componentArgs.shift() != interaction.user.id) {
 				interaction.reply({ content: `> ${emojis.icon_error} ** | Erro!** ${interaction.user}, você **não pode** utilizar **este componente**.`, flags: ["Ephemeral"] });
 				return;
 			}
 
-			await component.execute(interaction as ComponentInteraction[ComponentKind]);
+		  await component.execute(interaction as ComponentInteraction[ComponentKind], componentArgs || []);
 		}
 
 		if (interaction.isChatInputCommand()) {

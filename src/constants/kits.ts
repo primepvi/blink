@@ -20,7 +20,6 @@ export const kits: Record<string, Kit> = {
       {id: "peitoral_ferro", quantity: 1},
       {id: "botas_ferro", quantity: 1},
       {id: "espada_ferro", quantity: 1},
-      {id: "escudo_madeira", quantity: 1}
     ]
   },
   assasino: {

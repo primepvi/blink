@@ -7,7 +7,7 @@ export default createComponent({
 	type: ComponentKind.StringSelect,
 	name: "kit_inventory_equip",
 	authorOnly: true,
-	async execute(interaction: StringSelectMenuInteraction<CacheType>) {
+  async execute(interaction: StringSelectMenuInteraction<CacheType>, args: string[]) {
 		await interaction.deferReply({ flags: ["Ephemeral"] });
 
 		const userData = (await db.users.findById(interaction.user.id))!;
