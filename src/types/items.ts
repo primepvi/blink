@@ -1,12 +1,11 @@
-export type ItemKind = "Armor" | "Weapon" | "Consumable" | "Accessory";
-export type ItemTier = "Common" | "Uncommon"
+export type ItemKind = "Armor" | "Weapon" | "Consumable" | "Accessory" | "Misc";
+export type ItemTier = "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary";
 
 export interface Item {
 	id: string;
 	kind: ItemKind;
 	name: string;
-	width: number;
-	height: number;
+	weight: number;
 	tier: ItemTier;
 }
 
@@ -21,8 +20,8 @@ export type WeaponType = "Magic" | "Melee" | "Projectile";
 export interface WeaponItem extends Item {
 	kind: "Weapon";
 	type: WeaponType;
-  damage: number;
-  cooldown: number;
+	damage: number;
+	cooldown: number;
 }
 
 export type ConsumableType = "Buff" | "Debuff" | "Instant";
@@ -44,26 +43,57 @@ export type GridDirection =
 
 export type AccessoryCondition = (item: Item) => boolean;
 
-export type AccessoryEffectTarget =
-	| "damage"
-	| "defense"
-	| "value"
-	| "duration"
-
-export type AccessoryEffectMode =
-	| "flat"
-	| "percent"
-
-export interface AccessoryEffect {
-	target: AccessoryEffectTarget
-	mode: AccessoryEffectMode
-	value: number
-	condition: AccessoryCondition
+export interface StatEffect {
+	kind: "stat";
+	target: "damage" | "defense" | "cooldown" | "duration" | "value";
+	mode: "flat" | "percent";
+	value: number;
 }
+
+export interface StatusEffect {
+	kind: "status";
+	status: "Burn" | "Poison" | "Stun" | "Slow" | "Blind";
+	duration: number;
+	value: number;
+}
+
+export interface TransformEffect {
+	kind: "transform";
+	replaceField: "type" | "tier";
+	replaceValue: string;
+}
+
+export type TriggerApply =
+	| StatEffect
+	| StatusEffect
+	| TransformEffect;
+
+export type TriggerEvent =
+	| "onHit"
+	| "onKill"
+	| "onLowHp"
+	| "onTurnStart"
+	| "onTurnEnd"
+	| "onEquip"
+	| "onConsumableUse";
+
+export interface TriggerEffect {
+	kind: "trigger";
+	event: TriggerEvent;
+	threshold?: number;   // in "onLowHp", ex: 0.3 = 30%
+	chance?: number;      // in "onHit", ex: 0.25 = 25%
+	apply: TriggerApply;
+}
+
+export type AccessoryEffect =
+	| StatEffect
+	| TriggerEffect
+	| TransformEffect;
 
 export interface AccessoryAura {
 	directions: GridDirection[]
-	effect: AccessoryEffect
+	effect: AccessoryEffect,
+	condition: AccessoryCondition
 }
 
 export interface AccessoryItem extends Item {
